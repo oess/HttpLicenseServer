@@ -38,7 +38,7 @@ class Handler(BaseHTTPRequestHandler):
         return content    
 
     def do_GET(self):
-        code = 200  # OEAddLicenseFromHttp() only recognizes response code 200
+        code = 200  # OEAddLicenseDataFromHttp() only recognizes response code 200
         try:
             content = self.getLicense() 
         except Exception, e:
