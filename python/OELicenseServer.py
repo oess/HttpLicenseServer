@@ -23,15 +23,19 @@ class Handler(BaseHTTPRequestHandler):
     def getLicense(self):
         """Load the license from the file system on each request."""
         name = None
-        if "OE_DIR" in os.environ:
-            name = os.environ["OE_DIR"] + "/oe_license.txt"
-        elif "OE_LICENSE" in os.environ:
-            name = os.environ["OE_LICENSE"]
-        elif os.path.exists("./oe_license.txt"):
+
+        if os.path.exists("./oe_license.txt"):
             name = "./oe_license.txt"
         else:
-            raise Exception("Could not find license in OE_DIR, OE_LICENSE or in the current directory.")
-        
+          if "OE_DIR" in os.environ:
+              name = os.environ["OE_DIR"] + "/oe_license.txt"
+
+          if "OE_LICENSE" in os.environ:
+              name = os.environ["OE_LICENSE"]
+
+        if name == None:
+          raise Exception("Could not find license in OE_DIR, OE_LICENSE or in the current directory.")
+
         content = None
         with open(name, "r") as fd:
            content = fd.read()
