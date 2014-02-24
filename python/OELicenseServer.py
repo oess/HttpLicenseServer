@@ -50,7 +50,9 @@ class Handler(BaseHTTPRequestHandler):
             content = e.message
             
         self.send_response(code)
-        self.send_header("Content-type", "text/plain")     # text/plain is a requirement
+        self.send_header("Content-type", "text/plain")     
+        # uncomment the line below to use utf-8 encoding (June-2014 and later)
+        #self.send_header("Content-type", "text/html; charset=utf-8")  
         self.send_header("Content-length", len(content))
         self.end_headers()
         self.wfile.write(content)
